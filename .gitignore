@@ -1,0 +1,7 @@
+# .gitignore
+__pycache__/
+*.py[cod]
+.env
+*.log
+data/raw/
+outputs/
