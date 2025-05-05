@@ -1,20 +1,21 @@
-# api/app.py
-from fastapi import FastAPI
-from config import load_config
-from api.routes.forecast import router as forecast_router
+from fastapi import FastAPI, Depends
+from aiocache import cached  # 异步缓存库
+from api.routers import health, forecast  # 导入路由模块
+from pydantic import constr
 
-# 创建 FastAPI 应用实例
-app = FastAPI(title="Weather Agent API")
-# 加载配置
-config = load_config()
+app = FastAPI()
 
-# 包含天气预报路由
-app.include_router(forecast_router, prefix="/api")
+# 模拟 get_current_user 函数
+def get_current_user():
+    # 这里可以添加实际的用户验证逻辑
+    return {"username": "test_user"}
 
-# 定义健康检查接口
-@app.get("/health")
-async def health_check():
-    """
-    健康检查接口，返回服务的状态和版本信息
-    """
-    return {"status": "OK", "version": "0.1.0"}
+# 包含路由
+app.include_router(health.router)
+app.include_router(forecast.router)
+
+# 使用支持异步的缓存装饰器
+@app.get("/protected")
+@cached(ttl=60)  # 使用 aiocache
+async def protected_route(user: dict = Depends(get_current_user)):
+    return {"message": "This is a protected route", "user": user}

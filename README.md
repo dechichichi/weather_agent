@@ -1,9 +1,5 @@
 ![deepseek_mermaid_20250503_3e65dd](C:\Users\Lyan\Downloads\deepseek_mermaid_20250503_3e65dd.png)
 
-
-
-### 
-
 ```
 weather_agent/
 ├── config/               # 配置文件
@@ -25,7 +21,7 @@ weather_agent/
 ├── model/                # 模型层
 │   ├── core/             # 基础组件
 │   │   ├── attention/    # 注意力机制
-│   │   │   ├── multihead.py  # 修正拼写错误
+│   │   │   ├── multi_head.py  # 多头注意力模块
 │   │   │   └── sparse.py     # 扩展稀疏注意力
 │   │   ├── embeddings.py     # 位置编码
 │   │   └── layers.py         # 通用层
@@ -35,11 +31,10 @@ weather_agent/
 │       └── visualize.py  # 注意力可视化
 ├── api/                  # API服务
 │   ├── app.py            # FastAPI主程序
-│   ├── routes/           # 路由模块
+│   ├── routers/          # 路由模块
 │   │   ├── forecast.py   # 天气预报接口
 │   │   └── health.py     # 服务监控
 │   └── middleware/       # 中间件
-│       ├── auth.py       # 认证
 │       └── cache.py      # 缓存
 ├── outputs/              # 输出目录（复数更规范）
 │   ├── predictions/      # 预测结果
@@ -51,6 +46,8 @@ weather_agent/
 ├── tools/                # 实用工具
 │   ├── data_simulator.py # 数据生成工具
 │   └── benchmark.py      # 性能测试工具
+├── .gitignore            # Git忽略文件配置
+├── requirements.txt      # 项目依赖
 └── README.md             # 项目文档
 ```
 
